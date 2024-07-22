@@ -1,1 +1,1 @@
-First Project
+A Stright Vanilla JS Booklist app
