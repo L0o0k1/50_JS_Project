@@ -7,26 +7,16 @@ class Book {
     }
 }
 
-// UI Class : Handle UI Tasks.
+// UI Class : to Handle UI Tasks.
 class UI {
     static dispBooks() {
-        const books = [
-            {
-                title: "Book One",
-                author: "Author One",
-                ISBN: "1234567890",
-            },
-            {
-                title: "Book Two",
-                author: "Author Two",
-                ISBN: "0987654321",
-            }
-        ];
+        const books = Store.getBooks();
         
         books.forEach(book => {
             UI.addBookToList(book);
         });
     }
+
     
     static addBookToList(book) {
         const list = document.querySelector('#book-list');
@@ -54,10 +44,34 @@ class UI {
         const form = document.querySelector("#book-form");
         container.insertBefore(div, form);
         
-        // Vanish in 3 seconds....
+        // Vanish in 3 sec....
         setTimeout(() => document.querySelector('.alert').remove(), 3000);
     }
 }
+class Store {
+    static getBooks() {
+        let books;
+        if (localStorage.getItem('books') === null) {
+            books = [];
+        } else {
+            books = JSON.parse(localStorage.getItem('books'));
+        }
+        return books;
+    }
+
+    static insertBook(book) {
+        const books = Store.getBooks();
+        books.push(book);
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+
+    static rmBook(ISBN) {
+        let books = Store.getBooks();
+        books = books.filter(book => book.ISBN !== ISBN);
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+}
+
 
 // Initialization
 document.addEventListener('DOMContentLoaded', UI.dispBooks);
@@ -81,6 +95,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 
         // Add the new book to the UI
         UI.addBookToList(nBook);
+        Store.insertBook(nBook);
 
         // Clear the form fields
         document.querySelector('#title').value = '';
