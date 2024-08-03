@@ -1,16 +1,19 @@
 // Func to Computer Random Choice:
+//=================================
 const getChoice = () => {
     const choice = ["rock", "paper", "scissors"];
     const random = Math.floor(Math.random() * choice.length);
     return choice[random];
 }
 // Func to play :
+//================
 const playing = (usrChoice) => {
     const compChoice = getChoice();
     const result = knownWinner(usrChoice, compChoice);
     dispResult(usrChoice, compChoice, result)
 }
 // Func to know who Wins:
+//========================
 
 const knownWinner = (usr, comp) => {
     if (usr === comp){
@@ -27,6 +30,7 @@ const knownWinner = (usr, comp) => {
 }
 
 // Display the results:
+//======================
 
 function dispResult(usr, comp, result){
     const resDiv = document.getElementById("result");resDiv.innerHTML = `<h3>You Chose : ${usr}</h3>
