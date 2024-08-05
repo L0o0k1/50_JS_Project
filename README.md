@@ -1,1 +1,2 @@
-This repo Will Contain a Vanilla Projects with JS for practical coding and developing Coding skills.
+1. Book List App.
+2. Rock Paper Scissors Game.
